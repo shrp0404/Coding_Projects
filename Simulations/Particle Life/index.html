@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cellular Life</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Particle behavior sandbox</p>
+          <h1>Cellular Life</h1>
+          <p class="lede">
+            Build tiny color-to-color chase scripts, then watch particles hunt,
+            flee, and wrap across a black toroidal world.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-stat">
+            <span>World model</span>
+            <label class="world-size-field">
+              <input id="worldSizeInput" type="number" min="40" max="400" step="1" value="360" />
+              <span id="worldSizeLabel">360 x 360 square units</span>
+            </label>
+          </div>
+          <div class="hero-stat">
+            <span>Particle size</span>
+            <strong>Each particle is 1 x 1 unit</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Looping edges</span>
+            <strong>Left/right and top/bottom warp</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Particles in world</span>
+            <div id="colorCountsList" class="color-counts-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sim-grid">
+        <aside class="panel editor-panel">
+          <div class="panel-heading">
+            <p class="panel-kicker">1. Code</p>
+            <h2>Particle scripts</h2>
+          </div>
+          <div class="io-section">
+            <p class="panel-kicker">Inputs</p>
+            <h3>Buttons</h3>
+            <p class="microcopy">
+              Hold a button to make its <strong>pressed</strong> condition true;
+              let go for <strong>released</strong>.
+            </p>
+            <div id="buttonInputsList" class="io-inputs-grid"></div>
+          </div>
+          <div class="io-section">
+            <h3>Switches</h3>
+            <p class="microcopy">
+              Toggle a switch to make its <strong>on</strong> or
+              <strong>off</strong> condition true.
+            </p>
+            <div id="switchInputsList" class="io-inputs-grid"></div>
+          </div>
+          <label class="toggle-row">
+            <input id="multiSurroundToggle" type="checkbox" />
+            <span>Multi Surround</span>
+          </label>
+          <label class="toggle-row">
+            <input id="disableSideWarpToggle" type="checkbox" />
+            <span>Disable side warp</span>
+          </label>
+          <label class="toggle-row">
+            <input id="useMatrixToggle" type="checkbox" />
+            <span>Use Matrix</span>
+          </label>
+          <label class="toggle-row">
+            <input id="randomRunToggle" type="checkbox" />
+            <span>Random Run</span>
+          </label>
+          <div class="actions-row">
+            <button id="randomiseBtn" class="button ghost" type="button">Randomise</button>
+          </div>
+          <div class="matrix-wrap" aria-label="Particle color matrix">
+            <table class="particle-matrix">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"><span class="color-dot red" aria-label="Red"></span></th>
+                  <th scope="col"><span class="color-dot orange" aria-label="Orange"></span></th>
+                  <th scope="col"><span class="color-dot yellow" aria-label="Yellow"></span></th>
+                  <th scope="col"><span class="color-dot green" aria-label="Green"></span></th>
+                  <th scope="col"><span class="color-dot blue" aria-label="Blue"></span></th>
+                  <th scope="col"><span class="color-dot purple" aria-label="Purple"></span></th>
+                  <th scope="col"><span class="color-dot pink" aria-label="Pink"></span></th>
+                  <th scope="col"><span class="color-dot brown" aria-label="Brown"></span></th>
+                  <th scope="col"><span class="color-dot white" aria-label="White"></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="color-dot red" aria-label="Red"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot orange" aria-label="Orange"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot yellow" aria-label="Yellow"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot green" aria-label="Green"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot blue" aria-label="Blue"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot purple" aria-label="Purple"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot pink" aria-label="Pink"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot brown" aria-label="Brown"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="color-dot white" aria-label="White"></span></th>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                  <td><input class="matrix-input" type="number" min="-1" max="1" step="0.1" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="surround-limits">
+            <label>
+              Max per particle
+              <input id="maxSurroundPerParticleInput" type="number" min="0" max="50000" step="1" value="0" />
+            </label>
+            <label>
+              Max per group
+              <input id="maxSurroundPerGroupInput" type="number" min="0" max="50000" step="1" value="0" />
+            </label>
+          </div>
+
+          <div class="rules">
+            <div class="rules-head">
+              <div>
+                <p class="panel-kicker">Behavior rules</p>
+                <h3>Simple color logic</h3>
+              </div>
+              <button id="addScriptBtn" class="button ghost" type="button">Add script</button>
+            </div>
+            <p id="matrixActiveNotice" class="microcopy" hidden>
+              Movement scripts are inactive while <strong>Use Matrix</strong> is checked — the
+              matrix now drives all particle movement.
+            </p>
+            <div id="scriptsList" class="rules-list"></div>
+          </div>
+
+          <div class="notes-box">
+            <p class="panel-kicker">How it works</p>
+            <p class="microcopy">
+              A script like <strong>red move toward green</strong> pulls red toward
+              green using wrapped shortest-path forces across the toroidal world.
+              Strength runs from <strong>-1 to 1</strong>, using the same force curve
+              as the matrix: positive values attract, negative values push away.
+            </p>
+          </div>
+
+          <div class="notes-box">
+            <p class="panel-kicker">Next reset</p>
+            <h3>Particle counts</h3>
+            <div id="resetCounts" class="reset-counts"></div>
+          </div>
+
+        </aside>
+
+        <section id="worldPanel" class="panel sim-panel">
+          <div class="panel-heading">
+            <p class="panel-kicker">2. Simulate</p>
+            <h2>Looping world</h2>
+          </div>
+          <div id="worldCanvasWrap" class="sim-canvas-wrap">
+            <canvas id="worldCanvas" class="sim-canvas" width="600" height="600"></canvas>
+          </div>
+          <div class="world-footer">
+            <div class="actions-row world-actions">
+              <button id="pauseBtn" class="button ghost" type="button">Pause</button>
+              <button id="resetBtn" class="button ghost" type="button">Reset</button>
+              <button id="fullscreenWorldBtn" class="button ghost" type="button">Fullscreen world</button>
+            </div>
+          </div>
+          <p class="microcopy">
+            The world starts with one red particle and one green particle on a black
+            background. Fullscreen uses the same style of expanded world view as your
+            creature-sim.
+          </p>
+        </section>
+
+        <aside class="panel stats-panel">
+          <div class="panel-heading">
+            <p class="panel-kicker">Live state</p>
+            <h2>World info</h2>
+          </div>
+          <div class="actions-row">
+            <button id="infoExitFullscreenBtn" class="button ghost" type="button">Exit fullscreen</button>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-label">Particles</span>
+              <strong id="particleCount" class="stat-value">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Scripts</span>
+              <strong id="scriptCount" class="stat-value">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">State</span>
+              <strong id="playState" class="stat-value">Play</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">World size</span>
+              <strong class="stat-value">400 x 400</strong>
+            </div>
+          </div>
+          <div class="selected-card">
+            <h3>Selected particle</h3>
+            <div id="selectedParticle">Click a particle in the world to inspect it.</div>
+          </div>
+          <label>
+            Export code
+            <textarea id="exportCodeOutput" rows="6" readonly spellcheck="false"></textarea>
+          </label>
+          <div class="actions-row">
+            <button id="exportCodeBtn" class="button ghost" type="button">Export</button>
+          </div>
+          <label>
+            Import code
+            <textarea id="importCodeInput" rows="6" spellcheck="false"></textarea>
+          </label>
+          <div class="actions-row">
+            <button id="importCodeBtn" class="button ghost" type="button">Import</button>
+          </div>
+          <pre id="selfTestOutput" hidden></pre>
+        </aside>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
