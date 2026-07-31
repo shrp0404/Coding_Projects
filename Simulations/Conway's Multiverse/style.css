@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #000000;
+  --panel: #0a0a10;
+  --line: #1c1c26;
+  --text: #eef0f8;
+  --text-dim: #7c7d93;
+
+  /* accent palette (UI chrome only — cell color now comes from age) */
+  --p-red: #ff3b5c;
+  --p-green: #38ff9c;
+  --p-blue: #3ba7ff;
+  --p-yellow: #ffd23b;
+  --p-violet: #d63bff;
+
+  --accent: var(--p-blue);
+  --accent-dim: #123a5c;
+  --danger: var(--p-red);
+
+  --cols: 100;
+  --rows: 100;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 100vh;
+  padding: 16px 20px;
+}
+
+.app {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- Header ---------- */
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.age-gradient {
+  display: inline-block;
+  width: 90px;
+  height: 8px;
+  margin-left: 12px;
+  vertical-align: middle;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    hsl(235, 90%, 42%),
+    hsl(176, 90%, 46%),
+    hsl(118, 90%, 51%),
+    hsl(59, 90%, 55%),
+    hsl(0, 90%, 60%)
+  );
+}
+
+.usage-line {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.usage-line::selection {
+  background: var(--accent-dim);
+}
+
+.rule-row {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rule-input {
+  flex: 0 1 260px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 10px 12px;
+  border-radius: 3px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rule-input:focus {
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 3px rgba(59, 167, 255, 0.16);
+}
+
+.rule-input.invalid {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.rule-status {
+  font-size: 12px;
+  color: var(--text-dim);
+  min-height: 14px;
+}
+
+.rule-status.error {
+  color: var(--danger);
+}
+
+/* ---------- Grid ---------- */
+
+.grid-shell {
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(59, 167, 255, 0.05) inset;
+}
+
+.grid {
+  display: block;
+  background: #000;
+  cursor: crosshair;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 9px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent-dim);
+  border-color: var(--accent-dim);
+  color: #04101c;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04101c;
+}
+
+.btn-primary[aria-pressed="true"] {
+  background: #04101c;
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-left: 4px;
+}
+
+.speed-control input[type="range"] {
+  accent-color: var(--accent);
+  width: 110px;
+}
+
+.gen-counter {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  html, body {
+    overflow: auto;
+  }
+  body {
+    height: auto;
+    min-height: 100vh;
+    padding: 24px 12px;
+  }
+  .grid-shell {
+    flex: none;
+    height: 60vh;
+  }
+  .gen-counter {
+    margin-left: 0;
+    width: 100%;
+    order: 10;
+  }
+}

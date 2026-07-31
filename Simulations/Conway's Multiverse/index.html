@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life-like Cellular Automaton</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app">
+    <header class="app-header">
+      <h1 class="app-title">
+        Cellular Automaton
+        <span class="age-gradient" aria-hidden="true"></span>
+      </h1>
+      <p class="usage-line">Usage: B[born neighbors]/S[survive neighbors]</p>
+
+      <div class="rule-row">
+        <input
+          id="rule-input"
+          class="rule-input"
+          type="text"
+          value="B3/S23"
+          spellcheck="false"
+          autocomplete="off"
+          aria-label="Rule string"
+        >
+        <span id="rule-status" class="rule-status" aria-live="polite"></span>
+      </div>
+    </header>
+
+    <div class="grid-shell">
+      <canvas id="grid" class="grid"></canvas>
+    </div>
+
+    <footer class="controls">
+      <button id="play-pause" class="btn btn-primary" aria-pressed="false">▶ Play</button>
+      <button id="step" class="btn">Step</button>
+      <button id="randomize" class="btn">Randomize</button>
+      <button id="clear" class="btn">Clear</button>
+
+      <label class="speed-control">
+        <span>Speed</span>
+        <input id="speed" type="range" min="1" max="30" value="10">
+      </label>
+
+      <span id="gen-counter" class="gen-counter">Gen 0</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
